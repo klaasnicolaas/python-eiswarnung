@@ -99,14 +99,6 @@ class Eiswarnung:
                 "Error occurred while communicating with Eiswarnung API"
             ) from exception
 
-        data = await response.json()
-        if data["code"] < 500:
-            self.ratelimit = Ratelimit.from_response(data)
-        if data["code"] in [300, 400, 401]:
-            raise EiswarnungRequestError(data)
-        if data["code"] == 402:
-            raise EiswarnungRatelimitError(data)
-
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
             text = await response.text()
@@ -114,6 +106,16 @@ class Eiswarnung:
                 "Unexpected response from the Eiswarnung API",
                 {"Content-Type": content_type, "response": text},
             )
+
+        data = await response.json()
+        if data["code"] == 200:
+            self.ratelimit = Ratelimit.from_response(data)
+
+        if data["code"] in [300, 400, 401]:
+            raise EiswarnungRequestError(data)
+
+        if data["code"] == 402:
+            raise EiswarnungRatelimitError(data)
 
         return data
 
