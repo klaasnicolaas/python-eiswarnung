@@ -155,7 +155,7 @@ SOFTWARE.
 [code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-eiswarnung/context:python
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-eiswarnung.svg
 [commits-url]: https://github.com/klaasnicolaas/python-eiswarnung/commits/master
-[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eiswarnung/branch/master/graph/badge.svg?token=VQTR24YFQ9
+[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eiswarnung/branch/master/graph/badge.svg?token=w0pbSPjFIZ
 [codecov-url]: https://codecov.io/gh/klaasnicolaas/python-eiswarnung
 [forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-eiswarnung.svg
 [forks-url]: https://github.com/klaasnicolaas/python-eiswarnung/network/members
