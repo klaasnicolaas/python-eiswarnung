@@ -3,7 +3,7 @@
 
 import asyncio
 
-from eiswarnung import Eiswarnung, Estimate
+from eiswarnung import Eiswarnung, Forecast
 
 
 async def main():
@@ -13,15 +13,15 @@ async def main():
         latitude=49.41,
         longitude=8.68,
     ) as client:
-        estimate: Estimate = await client.estimate()
-        print("--- ESTIMATE ---")
-        print(estimate)
-        print(f"Forecast Type: {estimate.forecast_type}")
-        print(f"Forecast Text: {estimate.forecast_text}")
-        print(f"Forecast Date: {estimate.forecast_date}")
-        print(f"Forecast City: {estimate.forecast_city}")
+        forecast: Forecast = await client.forecast()
+        print("--- FORECAST ---")
+        print(forecast)
+        print(f"Forecast Type: {forecast.forecast_type}")
+        print(f"Forecast Text: {forecast.text}")
+        print(f"Forecast Date: {forecast.forecast_date}")
+        print(f"Forecast City: {forecast.city}")
         print()
-        print(f"Request Date: {estimate.request_date}")
+        print(f"Request Date: {forecast.request_date}")
         print()
         print("--- RATE LIMIT ---")
         print(client.ratelimit)

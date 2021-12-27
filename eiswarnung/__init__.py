@@ -6,7 +6,7 @@ from .eiswarnung import (
     EiswarnungRatelimitError,
     EiswarnungRequestError,
 )
-from .models import Estimate, Ratelimit
+from .models import Forecast, Ratelimit
 
 __all__ = [
     "Eiswarnung",
@@ -14,6 +14,6 @@ __all__ = [
     "EiswarnungConnectionError",
     "EiswarnungRatelimitError",
     "EiswarnungRequestError",
-    "Estimate",
+    "Forecast",
     "Ratelimit",
 ]

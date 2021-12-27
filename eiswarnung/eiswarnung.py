@@ -19,7 +19,7 @@ from .exceptions import (
     EiswarnungRatelimitError,
     EiswarnungRequestError,
 )
-from .models import Estimate, Ratelimit
+from .models import Forecast, Ratelimit
 
 
 @dataclass
@@ -119,11 +119,11 @@ class Eiswarnung:
 
         return data
 
-    async def estimate(self) -> Estimate:
+    async def forecast(self) -> Forecast:
         """Get forecast information from the Eiswarnung API.
 
         Returns:
-            A Estimate object, with a ice warning forecast.
+            A Forecast object, with a ice warning forecast.
         """
         data = await self._request(
             "/",
@@ -133,7 +133,7 @@ class Eiswarnung:
                 "lng": self.longitude,
             },
         )
-        return Estimate.from_response(data)
+        return Forecast.from_response(data)
 
     async def close(self) -> None:
         """Close open client session."""
