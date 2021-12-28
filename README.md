@@ -46,8 +46,8 @@ async def main():
         latitude=49.17,
         longitude=11.10,
     ) as client:
-        estimate = await client.estimate()
-        print(estimate)
+        forecast = await client.forecast()
+        print(forecast)
         print(client.ratelimit)
 
 if __name__ == "__main__":

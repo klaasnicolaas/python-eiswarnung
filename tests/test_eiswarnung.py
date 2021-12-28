@@ -77,7 +77,7 @@ async def test_timeout(aresponses):
             request_timeout=0.1,
         )
         with pytest.raises(EiswarnungConnectionError):
-            assert await client.estimate()
+            assert await client.forecast()
 
 
 @pytest.mark.asyncio
@@ -98,7 +98,7 @@ async def test_content_type(aresponses):
             api_key="fake", latitude=42.1, longitude=11.1, session=session
         )
         with pytest.raises(EiswarnungError):
-            assert await client.estimate()
+            assert await client.forecast()
 
 
 @pytest.mark.asyncio

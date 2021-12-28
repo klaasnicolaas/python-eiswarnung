@@ -16,13 +16,13 @@ class ForecastType(str, Enum):
 
 
 @dataclass
-class Estimate:
-    """Object representing an Estimate response from Eiswarnung."""
+class Forecast:
+    """Object representing an Forecast response from Eiswarnung."""
 
     request_date: datetime
     status_id: int
-    forecast_text: str
-    forecast_city: str
+    text: str
+    city: str
     forecast_date: datetime
 
     @property
@@ -39,23 +39,23 @@ class Estimate:
         return ForecastType.NO_ICE
 
     @classmethod
-    def from_response(cls, data: dict) -> Estimate:
-        """Create an Estimate from a response.
+    def from_response(cls, data: dict) -> Forecast:
+        """Create an Forecast from a response.
 
         Args:
             data: The response data from the Eiswarnung API.
 
         Returns:
-            A Estimate object.
+            A Forecast object.
         """
         data = data["result"]
-        return Estimate(
+        return Forecast(
             request_date=datetime.strptime(
                 data.get("requestDate"), "%Y-%m-%d %H:%M:%S"
             ),
             status_id=data.get("forecastId"),
-            forecast_text=data.get("forecastText").replace(".", ""),
-            forecast_city=data.get("forecastCity"),
+            text=data.get("forecastText").replace(".", ""),
+            city=data.get("forecastCity"),
             forecast_date=datetime.strptime(
                 data.get("forecastDate"), "%Y-%m-%d"
             ).date(),
