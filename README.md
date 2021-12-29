@@ -154,8 +154,8 @@ SOFTWARE.
 [code-quality-shield]: https://img.shields.io/lgtm/grade/python/g/klaasnicolaas/python-eiswarnung.svg?logo=lgtm&logoWidth=18
 [code-quality]: https://lgtm.com/projects/g/klaasnicolaas/python-eiswarnung/context:python
 [commits-shield]: https://img.shields.io/github/commit-activity/y/klaasnicolaas/python-eiswarnung.svg
-[commits-url]: https://github.com/klaasnicolaas/python-eiswarnung/commits/master
-[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eiswarnung/branch/master/graph/badge.svg?token=w0pbSPjFIZ
+[commits-url]: https://github.com/klaasnicolaas/python-eiswarnung/commits/main
+[codecov-shield]: https://codecov.io/gh/klaasnicolaas/python-eiswarnung/branch/main/graph/badge.svg?token=w0pbSPjFIZ
 [codecov-url]: https://codecov.io/gh/klaasnicolaas/python-eiswarnung
 [forks-shield]: https://img.shields.io/github/forks/klaasnicolaas/python-eiswarnung.svg
 [forks-url]: https://github.com/klaasnicolaas/python-eiswarnung/network/members
