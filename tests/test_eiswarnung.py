@@ -85,7 +85,7 @@ async def test_content_type(aresponses):
     """Test request content type error from Eiswarnung API."""
     aresponses.add(
         "api.eiswarnung.de",
-        "/",
+        "/test",
         "GET",
         aresponses.Response(
             status=200,
@@ -98,7 +98,7 @@ async def test_content_type(aresponses):
             api_key="fake", latitude=42.1, longitude=11.1, session=session
         )
         with pytest.raises(EiswarnungError):
-            assert await client.forecast()
+            assert await client._request("test")
 
 
 @pytest.mark.asyncio
