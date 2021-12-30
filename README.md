@@ -164,7 +164,7 @@ SOFTWARE.
 [license-shield]: https://img.shields.io/github/license/klaasnicolaas/python-eiswarnung.svg
 [last-commit-shield]: https://img.shields.io/github/last-commit/klaasnicolaas/python-eiswarnung.svg
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
-[maintainability-shield]: https://api.codeclimate.com/v1/badges/443c476612a574d82467/maintainability
+[maintainability-shield]: https://api.codeclimate.com/v1/badges/d1c7f7b99ac0225c2e18/maintainability
 [maintainability-url]: https://codeclimate.com/github/klaasnicolaas/python-eiswarnung/maintainability
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-experimental-yellow.svg
 [pypi]: https://pypi.org/project/eiswarnung/
