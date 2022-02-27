@@ -9,6 +9,7 @@ import pytest
 from eiswarnung import (
     Eiswarnung,
     EiswarnungConnectionError,
+    EiswarnungConnectionTimeoutError,
     EiswarnungError,
     EiswarnungRatelimitError,
     EiswarnungRequestError,
@@ -76,7 +77,7 @@ async def test_timeout(aresponses):
             session=session,
             request_timeout=0.1,
         )
-        with pytest.raises(EiswarnungConnectionError):
+        with pytest.raises(EiswarnungConnectionTimeoutError):
             assert await client.forecast()
 
 

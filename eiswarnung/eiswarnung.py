@@ -15,6 +15,7 @@ from yarl import URL
 
 from .exceptions import (
     EiswarnungConnectionError,
+    EiswarnungConnectionTimeoutError,
     EiswarnungError,
     EiswarnungRatelimitError,
     EiswarnungRequestError,
@@ -51,7 +52,7 @@ class Eiswarnung:
         Args:
             uri: Request URI, without '/', for example, 'status'.
             method: HTTP method to use.
-            params: Dictionary of parameters to send to the Eiswarnung API.
+            params: Dictionary of params send to the Eiswarnung API.
 
         Returns:
             The response data from the Eiswarnung API.
@@ -59,6 +60,8 @@ class Eiswarnung:
         Raises:
             EiswarnungRequestError: There is something wrong with the
                 variables used in the request.
+            EiswarnungConnectionTimeoutError: A timeout occurred while
+                communicating with the Eiswarnung API.
             EiswarnungConnectionError: An error occurred while communicating
                 with the Eiswarnung API.
             EiswarnungError: Received an unexpected response from the
@@ -91,7 +94,7 @@ class Eiswarnung:
                 )
                 response.raise_for_status()
         except asyncio.TimeoutError as exception:
-            raise EiswarnungConnectionError(
+            raise EiswarnungConnectionTimeoutError(
                 "Timeout occurred while connecting to Eiswarnung API"
             ) from exception
         except (ClientError, socket.gaierror) as exception:
