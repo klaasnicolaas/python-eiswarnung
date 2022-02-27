@@ -1,6 +1,7 @@
 """Test the models."""
 import aiohttp
 import pytest
+from aresponses import ResponsesMockServer
 
 from eiswarnung import Eiswarnung, Forecast
 
@@ -8,7 +9,7 @@ from . import load_fixtures
 
 
 @pytest.mark.asyncio
-async def test_forecast_type0(aresponses):
+async def test_forecast_type0(aresponses: ResponsesMockServer) -> None:
     """Test request for Forecast object."""
     aresponses.add(
         "api.eiswarnung.de",
@@ -32,7 +33,7 @@ async def test_forecast_type0(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_forecast_type1(aresponses):
+async def test_forecast_type1(aresponses: ResponsesMockServer) -> None:
     """Test request for Forecast object."""
     aresponses.add(
         "api.eiswarnung.de",
@@ -56,7 +57,7 @@ async def test_forecast_type1(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_forecast_type2(aresponses):
+async def test_forecast_type2(aresponses: ResponsesMockServer) -> None:
     """Test request for Forecast object."""
     aresponses.add(
         "api.eiswarnung.de",

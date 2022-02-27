@@ -42,7 +42,7 @@ class Eiswarnung:
         uri: str,
         *,
         method: str = METH_GET,
-        params: Mapping[str, str] | None = None,
+        params: Mapping[str, str | float] | None = None,
     ) -> dict[str, Any]:
         """Handle a request to the Eiswarnung API.
 
@@ -110,7 +110,8 @@ class Eiswarnung:
                 {"Content-Type": content_type, "response": text},
             )
 
-        data = await response.json()
+        data: dict[str, Any] = await response.json(content_type=None)
+
         if data["code"] == 200:
             self.ratelimit = Ratelimit.from_response(data)
 
@@ -151,7 +152,7 @@ class Eiswarnung:
         """
         return self
 
-    async def __aexit__(self, *_exc_info) -> None:
+    async def __aexit__(self, *_exc_info: Any) -> None:
         """Async exit.
 
         Args:

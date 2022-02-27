@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import aiohttp
 import pytest
+from aresponses import Response, ResponsesMockServer
 
 from eiswarnung import (
     Eiswarnung,
@@ -19,7 +20,7 @@ from . import load_fixtures
 
 
 @pytest.mark.asyncio
-async def test_json_request(aresponses):
+async def test_json_request(aresponses: ResponsesMockServer) -> None:
     """Test JSON response is handled correctly."""
     aresponses.add(
         "api.eiswarnung.de",
@@ -41,7 +42,7 @@ async def test_json_request(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_internal_session(aresponses):
+async def test_internal_session(aresponses: ResponsesMockServer) -> None:
     """Test JSON response is handled correctly."""
     aresponses.add(
         "api.eiswarnung.de",
@@ -58,10 +59,10 @@ async def test_internal_session(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_timeout(aresponses):
+async def test_timeout(aresponses: ResponsesMockServer) -> None:
     """Test request timeout from Eiswarnung API."""
     # Faking a timeout by sleeping
-    async def response_handler(_):
+    async def response_handler(_: aiohttp.ClientResponse) -> Response:
         await asyncio.sleep(0.2)
         return aresponses.Response(
             body="Goodmorning!", text=load_fixtures("forecast_type0.json")
@@ -82,7 +83,7 @@ async def test_timeout(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_content_type(aresponses):
+async def test_content_type(aresponses: ResponsesMockServer) -> None:
     """Test request content type error from Eiswarnung API."""
     aresponses.add(
         "api.eiswarnung.de",
@@ -103,7 +104,7 @@ async def test_content_type(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_client_error():
+async def test_client_error() -> None:
     """Test request client error from Eiswarnung API."""
     async with aiohttp.ClientSession() as session:
         client = Eiswarnung(
@@ -116,7 +117,7 @@ async def test_client_error():
 
 
 @pytest.mark.asyncio
-async def test_http_error401(aresponses):
+async def test_http_error401(aresponses: ResponsesMockServer) -> None:
     """Test HTTP 401 response handling."""
     aresponses.add(
         "api.eiswarnung.de",
@@ -137,7 +138,7 @@ async def test_http_error401(aresponses):
 
 
 @pytest.mark.asyncio
-async def test_http_error402(aresponses):
+async def test_http_error402(aresponses: ResponsesMockServer) -> None:
     """Test HTTP 402 response handling."""
     aresponses.add(
         "api.eiswarnung.de",
