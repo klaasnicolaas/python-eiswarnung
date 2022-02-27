@@ -24,6 +24,10 @@ class EiswarnungRequestError(EiswarnungError):
         self.code = data["code"]
 
 
+class EiswarnungConnectionTimeoutError(EiswarnungError):
+    """Eiswarnung connection timeout exception."""
+
+
 class EiswarnungRatelimitError(EiswarnungError):
     """Eiswarnung ratelimit exception."""
 
