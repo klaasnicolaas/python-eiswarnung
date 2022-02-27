@@ -1,4 +1,5 @@
 """Exceptions for Eiswarnung API."""
+from typing import Any
 
 
 class EiswarnungError(Exception):
@@ -12,7 +13,7 @@ class EiswarnungConnectionError(EiswarnungError):
 class EiswarnungRequestError(EiswarnungError):
     """Eiswarnung wrong request input variables."""
 
-    def __init__(self, data: dict) -> None:
+    def __init__(self, data: dict[str, Any]) -> None:
         """Init a solar request error.
 
         Args:
@@ -31,7 +32,7 @@ class EiswarnungConnectionTimeoutError(EiswarnungError):
 class EiswarnungRatelimitError(EiswarnungError):
     """Eiswarnung ratelimit exception."""
 
-    def __init__(self, data: dict) -> None:
+    def __init__(self, data: dict[str, Any]) -> None:
         """Init a rate limit error.
 
         Args:

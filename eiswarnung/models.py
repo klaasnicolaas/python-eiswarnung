@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import date, datetime
 from enum import Enum
 from typing import Any
 
@@ -19,11 +19,11 @@ class ForecastType(str, Enum):
 class Forecast:
     """Object representing an Forecast response from Eiswarnung."""
 
-    request_date: datetime
-    status_id: int
-    text: str
-    city: str
-    forecast_date: datetime
+    request_date: datetime | None
+    status_id: int | None
+    text: str | None
+    city: str | None
+    forecast_date: date | None
 
     @property
     def forecast_type(self) -> ForecastType:
@@ -39,7 +39,7 @@ class Forecast:
         return ForecastType.NO_ICE
 
     @classmethod
-    def from_response(cls, data: dict) -> Forecast:
+    def from_response(cls, data: Any) -> Forecast:
         """Create an Forecast from a response.
 
         Args:
@@ -66,9 +66,9 @@ class Forecast:
 class Ratelimit:
     """Information about the current rate limit."""
 
-    call_limit: int
-    remaining_calls: int
-    retry_after: int
+    call_limit: int | None
+    remaining_calls: int | None
+    retry_after: int | None
 
     @classmethod
     def from_response(cls, data: dict[str, Any]) -> Ratelimit:
