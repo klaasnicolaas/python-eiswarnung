@@ -8,9 +8,9 @@ from dataclasses import dataclass
 from importlib import metadata
 from typing import Any
 
+import aiohttp
 import async_timeout
-from aiohttp.client import ClientError, ClientSession
-from aiohttp.hdrs import METH_GET
+from aiohttp import hdrs
 from yarl import URL
 
 from .exceptions import (
@@ -32,7 +32,7 @@ class Eiswarnung:
     longitude: float
 
     request_timeout: float = 10.0
-    session: ClientSession | None = None
+    session: aiohttp.client.ClientSession | None = None
     ratelimit: Ratelimit | None = None
 
     _close_session: bool = False
@@ -41,7 +41,7 @@ class Eiswarnung:
         self,
         uri: str,
         *,
-        method: str = METH_GET,
+        method: str = hdrs.METH_GET,
         params: Mapping[str, str | float] | None = None,
     ) -> dict[str, Any]:
         """Handle a request to the Eiswarnung API.
@@ -80,7 +80,7 @@ class Eiswarnung:
         }
 
         if self.session is None:
-            self.session = ClientSession()
+            self.session = aiohttp.ClientSession()
             self._close_session = True
 
         try:
@@ -97,7 +97,7 @@ class Eiswarnung:
             raise EiswarnungConnectionTimeoutError(
                 "Timeout occurred while connecting to Eiswarnung API"
             ) from exception
-        except (ClientError, socket.gaierror) as exception:
+        except (aiohttp.ClientError, socket.gaierror) as exception:
             raise EiswarnungConnectionError(
                 "Error occurred while communicating with Eiswarnung API"
             ) from exception

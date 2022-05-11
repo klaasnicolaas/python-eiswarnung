@@ -6,7 +6,7 @@ import asyncio
 from eiswarnung import Eiswarnung, Forecast
 
 
-async def main():
+async def main() -> None:
     """Test."""
     async with Eiswarnung(
         api_key="API_KEY",
@@ -25,11 +25,7 @@ async def main():
         print()
         print("--- RATE LIMIT ---")
         print(client.ratelimit)
-        print(f"Call Limit: {client.ratelimit.call_limit}")
-        print(f"Remaining Calls: {client.ratelimit.remaining_calls}")
-        print(f"Retry After: {client.ratelimit.retry_after}")
 
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    asyncio.run(main())
