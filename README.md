@@ -1,4 +1,5 @@
-## Python - Eiswarnung Client
+<!-- Banner -->
+![alt Banner of the Eiswarnung package](https://raw.githubusercontent.com/klaasnicolaas/python-eiswarnung/main/assets/header_eiswarnung-min.png)
 
 <!-- PROJECT SHIELDS -->
 [![GitHub Release][releases-shield]][releases]
