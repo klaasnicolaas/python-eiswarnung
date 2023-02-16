@@ -17,6 +17,7 @@ class EiswarnungRequestError(EiswarnungError):
         """Init a solar request error.
 
         Args:
+        ----
             data: The data that caused the error.
 
         https://www.eiswarnung.de/rest-api/
@@ -36,6 +37,7 @@ class EiswarnungRatelimitError(EiswarnungError):
         """Init a rate limit error.
 
         Args:
+        ----
             data: The data that caused the error.
         """
         super().__init__(f'{data["message"]} (error {data["code"]})')

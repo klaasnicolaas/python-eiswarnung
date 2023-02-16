@@ -1,14 +1,11 @@
 """Test the models."""
-import aiohttp
-import pytest
+from aiohttp import ClientSession
 from aresponses import ResponsesMockServer
-
 from eiswarnung import Eiswarnung, Forecast
 
 from . import load_fixtures
 
 
-@pytest.mark.asyncio
 async def test_forecast_type0(aresponses: ResponsesMockServer) -> None:
     """Test request for Forecast object."""
     aresponses.add(
@@ -22,9 +19,12 @@ async def test_forecast_type0(aresponses: ResponsesMockServer) -> None:
         ),
     )
 
-    async with aiohttp.ClientSession() as session:
+    async with ClientSession() as session:
         client = Eiswarnung(
-            api_key="fake", latitude=42.1, longitude=11.1, session=session
+            api_key="fake",
+            latitude=42.1,
+            longitude=11.1,
+            session=session,
         )
         forecast: Forecast = await client.forecast()
         assert forecast.city == "Heidelberg"
@@ -32,7 +32,6 @@ async def test_forecast_type0(aresponses: ResponsesMockServer) -> None:
         assert forecast.forecast_type == "No ice"
 
 
-@pytest.mark.asyncio
 async def test_forecast_type1(aresponses: ResponsesMockServer) -> None:
     """Test request for Forecast object."""
     aresponses.add(
@@ -46,9 +45,12 @@ async def test_forecast_type1(aresponses: ResponsesMockServer) -> None:
         ),
     )
 
-    async with aiohttp.ClientSession() as session:
+    async with ClientSession() as session:
         client = Eiswarnung(
-            api_key="fake", latitude=42.1, longitude=11.1, session=session
+            api_key="fake",
+            latitude=42.1,
+            longitude=11.1,
+            session=session,
         )
         forecast: Forecast = await client.forecast()
         assert forecast.city == "Heidelberg"
@@ -56,7 +58,6 @@ async def test_forecast_type1(aresponses: ResponsesMockServer) -> None:
         assert forecast.forecast_type == "Ice"
 
 
-@pytest.mark.asyncio
 async def test_forecast_type2(aresponses: ResponsesMockServer) -> None:
     """Test request for Forecast object."""
     aresponses.add(
@@ -70,9 +71,12 @@ async def test_forecast_type2(aresponses: ResponsesMockServer) -> None:
         ),
     )
 
-    async with aiohttp.ClientSession() as session:
+    async with ClientSession() as session:
         client = Eiswarnung(
-            api_key="fake", latitude=42.1, longitude=11.1, session=session
+            api_key="fake",
+            latitude=42.1,
+            longitude=11.1,
+            session=session,
         )
         forecast: Forecast = await client.forecast()
         assert forecast.city == "Heidelberg"
