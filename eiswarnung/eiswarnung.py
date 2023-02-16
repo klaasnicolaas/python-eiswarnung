@@ -3,14 +3,13 @@ from __future__ import annotations
 
 import asyncio
 import socket
-from collections.abc import Mapping
 from dataclasses import dataclass
 from importlib import metadata
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-import aiohttp
 import async_timeout
-from aiohttp import hdrs
+from aiohttp import ClientError, ClientSession
+from aiohttp.hdrs import METH_GET
 from yarl import URL
 
 from .exceptions import (
@@ -22,6 +21,9 @@ from .exceptions import (
 )
 from .models import Forecast, Ratelimit
 
+if TYPE_CHECKING:
+    from collections.abc import Mapping
+
 
 @dataclass
 class Eiswarnung:
@@ -32,7 +34,7 @@ class Eiswarnung:
     longitude: float
 
     request_timeout: float = 10.0
-    session: aiohttp.client.ClientSession | None = None
+    session: ClientSession | None = None
     ratelimit: Ratelimit | None = None
 
     _close_session: bool = False
@@ -41,7 +43,7 @@ class Eiswarnung:
         self,
         uri: str,
         *,
-        method: str = hdrs.METH_GET,
+        method: str = METH_GET,
         params: Mapping[str, str | float] | None = None,
     ) -> dict[str, Any]:
         """Handle a request to the Eiswarnung API.
@@ -54,10 +56,12 @@ class Eiswarnung:
             method: HTTP method to use.
             params: Dictionary of params send to the Eiswarnung API.
 
-        Returns:
+        Returns
+        -------
             The response data from the Eiswarnung API.
 
-        Raises:
+        Raises
+        ------
             EiswarnungRequestError: There is something wrong with the
                 variables used in the request.
             EiswarnungConnectionTimeoutError: A timeout occurred while
@@ -71,7 +75,7 @@ class Eiswarnung:
         """
         version = metadata.version(__package__)
         url = URL.build(scheme="https", host="api.eiswarnung.de", path="/").join(
-            URL(uri)
+            URL(uri),
         )
 
         headers = {
@@ -80,7 +84,7 @@ class Eiswarnung:
         }
 
         if self.session is None:
-            self.session = aiohttp.ClientSession()
+            self.session = ClientSession()
             self._close_session = True
 
         try:
@@ -94,19 +98,22 @@ class Eiswarnung:
                 )
                 response.raise_for_status()
         except asyncio.TimeoutError as exception:
+            msg = "Timeout occurred while connecting to Eiswarnung API"
             raise EiswarnungConnectionTimeoutError(
-                "Timeout occurred while connecting to Eiswarnung API"
+                msg,
             ) from exception
-        except (aiohttp.ClientError, socket.gaierror) as exception:
+        except (ClientError, socket.gaierror) as exception:
+            msg = "Error occurred while communicating with Eiswarnung API"
             raise EiswarnungConnectionError(
-                "Error occurred while communicating with Eiswarnung API"
+                msg,
             ) from exception
 
         content_type = response.headers.get("Content-Type", "")
         if "application/json" not in content_type:
             text = await response.text()
+            msg = "Unexpected response from Eiswarnung API"
             raise EiswarnungError(
-                "Unexpected response from the Eiswarnung API",
+                msg,
                 {"Content-Type": content_type, "response": text},
             )
 
@@ -126,7 +133,8 @@ class Eiswarnung:
     async def forecast(self) -> Forecast:
         """Get forecast information from the Eiswarnung API.
 
-        Returns:
+        Returns
+        -------
             A Forecast object, with a ice warning forecast.
         """
         data = await self._request(
@@ -147,7 +155,8 @@ class Eiswarnung:
     async def __aenter__(self) -> Eiswarnung:
         """Async enter.
 
-        Returns:
+        Returns
+        -------
             The Eiswarnung object.
         """
         return self
@@ -156,6 +165,7 @@ class Eiswarnung:
         """Async exit.
 
         Args:
+        ----
             _exc_info: Exec type.
         """
         await self.close()

@@ -6,6 +6,8 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Any
 
+import pytz
+
 
 class ForecastType(str, Enum):
     """Enumeration representing the Eiswarnung Forecast type."""
@@ -19,17 +21,18 @@ class ForecastType(str, Enum):
 class Forecast:
     """Object representing an Forecast response from Eiswarnung."""
 
-    request_date: datetime | None
+    request_date: datetime
     status_id: int | None
     text: str | None
     city: str | None
-    forecast_date: date | None
+    forecast_date: date
 
     @property
     def forecast_type(self) -> ForecastType:
         """Return API account_type information.
 
-        Returns:
+        Returns
+        -------
             The forecast type.
         """
         if self.status_id == 1:
@@ -39,26 +42,32 @@ class Forecast:
         return ForecastType.NO_ICE
 
     @classmethod
-    def from_response(cls, data: Any) -> Forecast:
+    def from_response(cls: type[Forecast], data: Any) -> Forecast:
         """Create an Forecast from a response.
 
         Args:
             data: The response data from the Eiswarnung API.
 
-        Returns:
+        Returns
+        -------
             A Forecast object.
         """
         data = data["result"]
+        cet = pytz.timezone("CET")
         return Forecast(
             request_date=datetime.strptime(
-                data.get("requestDate"), "%Y-%m-%d %H:%M:%S"
-            ),
+                data.get("requestDate"),
+                "%Y-%m-%d %H:%M:%S",
+            ).replace(tzinfo=cet),
             status_id=data.get("forecastId"),
             text=data.get("forecastText").replace(".", ""),
             city=data.get("forecastCity"),
             forecast_date=datetime.strptime(
-                data.get("forecastDate"), "%Y-%m-%d"
-            ).date(),
+                data.get("forecastDate"),
+                "%Y-%m-%d",
+            )
+            .replace(tzinfo=cet)
+            .date(),
         )
 
 
@@ -71,13 +80,14 @@ class Ratelimit:
     retry_after: int | None
 
     @classmethod
-    def from_response(cls, data: dict[str, Any]) -> Ratelimit:
+    def from_response(cls: type[Ratelimit], data: dict[str, Any]) -> Ratelimit:
         """Create a Ratelimit object from the response data.
 
         Args:
             data: The response data from the Eiswarnung API.
 
-        Returns:
+        Returns
+        -------
             A Ratelimit object.
         """
         return cls(
