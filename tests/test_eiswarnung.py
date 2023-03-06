@@ -6,6 +6,7 @@ from unittest.mock import patch
 import pytest
 from aiohttp import ClientError, ClientResponse, ClientSession
 from aresponses import Response, ResponsesMockServer
+
 from eiswarnung import (
     Eiswarnung,
     EiswarnungConnectionError,
@@ -60,6 +61,7 @@ async def test_internal_session(aresponses: ResponsesMockServer) -> None:
 
 async def test_timeout(aresponses: ResponsesMockServer) -> None:
     """Test request timeout from Eiswarnung API."""
+
     # Faking a timeout by sleeping
     async def response_handler(_: ClientResponse) -> Response:
         await asyncio.sleep(0.2)

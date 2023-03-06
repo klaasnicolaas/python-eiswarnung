@@ -52,15 +52,16 @@ class Eiswarnung:
         the Eiswarnung API.
 
         Args:
+        ----
             uri: Request URI, without '/', for example, 'status'.
             method: HTTP method to use.
             params: Dictionary of params send to the Eiswarnung API.
 
-        Returns
+        Returns:
         -------
             The response data from the Eiswarnung API.
 
-        Raises
+        Raises:
         ------
             EiswarnungRequestError: There is something wrong with the
                 variables used in the request.
