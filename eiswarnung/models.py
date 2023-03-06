@@ -46,9 +46,10 @@ class Forecast:
         """Create an Forecast from a response.
 
         Args:
+        ----
             data: The response data from the Eiswarnung API.
 
-        Returns
+        Returns:
         -------
             A Forecast object.
         """
@@ -84,9 +85,10 @@ class Ratelimit:
         """Create a Ratelimit object from the response data.
 
         Args:
+        ----
             data: The response data from the Eiswarnung API.
 
-        Returns
+        Returns:
         -------
             A Ratelimit object.
         """

@@ -1,6 +1,7 @@
 """Test the models."""
 from aiohttp import ClientSession
 from aresponses import ResponsesMockServer
+
 from eiswarnung import Eiswarnung, Forecast
 
 from . import load_fixtures
