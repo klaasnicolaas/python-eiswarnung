@@ -12,6 +12,8 @@ import pytz
 class ForecastType(str, Enum):
     """Enumeration representing the Eiswarnung Forecast type."""
 
+    __slots__ = ()
+
     NO_ICE = "No ice"
     POSSIBLY_ICE = "Possibly ice"
     ICE = "Ice"
