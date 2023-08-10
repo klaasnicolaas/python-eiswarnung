@@ -24,6 +24,8 @@ from .models import Forecast, Ratelimit
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
+    from typing_extensions import Self
+
 
 @dataclass
 class Eiswarnung:
@@ -153,7 +155,7 @@ class Eiswarnung:
         if self.session and self._close_session:
             await self.session.close()
 
-    async def __aenter__(self) -> Eiswarnung:
+    async def __aenter__(self) -> Self:
         """Async enter.
 
         Returns
@@ -162,7 +164,7 @@ class Eiswarnung:
         """
         return self
 
-    async def __aexit__(self, *_exc_info: Any) -> None:
+    async def __aexit__(self, *_exc_info: object) -> None:
         """Async exit.
 
         Args:
