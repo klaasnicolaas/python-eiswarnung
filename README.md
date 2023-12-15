@@ -41,6 +41,7 @@ import asyncio
 
 from eiswarnung import Eiswarnung
 
+
 async def main():
     """Show example on getting data from the Eiswarnung API."""
     async with Eiswarnung(
@@ -51,6 +52,7 @@ async def main():
         forecast = await client.forecast()
         print(forecast)
         print(client.ratelimit)
+
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -98,7 +100,7 @@ providing comprehensive management and control over project dependencies.
 
 You need at least:
 
-- Python 3.9+
+- Python 3.11+
 - [Poetry][poetry-install]
 
 Install all packages, including all development requirements:
