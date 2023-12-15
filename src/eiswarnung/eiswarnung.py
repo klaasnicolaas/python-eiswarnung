@@ -5,9 +5,8 @@ import asyncio
 import socket
 from dataclasses import dataclass
 from importlib import metadata
-from typing import TYPE_CHECKING, Any
+from typing import Any, Mapping, Self
 
-import async_timeout
 from aiohttp import ClientError, ClientSession
 from aiohttp.hdrs import METH_GET
 from yarl import URL
@@ -20,11 +19,6 @@ from .exceptions import (
     EiswarnungRequestError,
 )
 from .models import Forecast, Ratelimit
-
-if TYPE_CHECKING:
-    from collections.abc import Mapping
-
-    from typing_extensions import Self
 
 
 @dataclass
@@ -91,7 +85,7 @@ class Eiswarnung:
             self._close_session = True
 
         try:
-            async with async_timeout.timeout(self.request_timeout):
+            async with asyncio.timeout(self.request_timeout):
                 response = await self.session.request(
                     method,
                     url,
