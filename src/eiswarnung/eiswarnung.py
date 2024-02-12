@@ -69,6 +69,7 @@ class Eiswarnung:
                 Eiswarnung API.
             EiswarnungRatelimitError: The number of requests has exceeded
                 the rate limit of the Eiswarnung API.
+
         """
         version = metadata.version(__package__)
         url = URL.build(scheme="https", host="api.eiswarnung.de", path="/").join(
@@ -133,6 +134,7 @@ class Eiswarnung:
         Returns
         -------
             A Forecast object, with a ice warning forecast.
+
         """
         data = await self._request(
             "/",
@@ -155,6 +157,7 @@ class Eiswarnung:
         Returns
         -------
             The Eiswarnung object.
+
         """
         return self
 
@@ -164,5 +167,6 @@ class Eiswarnung:
         Args:
         ----
             _exc_info: Exec type.
+
         """
         await self.close()
