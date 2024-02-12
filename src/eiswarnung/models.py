@@ -36,6 +36,7 @@ class Forecast:
         Returns
         -------
             The forecast type.
+
         """
         if self.status_id == 1:
             return ForecastType.ICE
@@ -54,6 +55,7 @@ class Forecast:
         Returns:
         -------
             A Forecast object.
+
         """
         data = data["result"]
         cet = pytz.timezone("CET")
@@ -93,6 +95,7 @@ class Ratelimit:
         Returns:
         -------
             A Ratelimit object.
+
         """
         return cls(
             call_limit=data.get("callsDailyLimit"),
