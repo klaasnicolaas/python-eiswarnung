@@ -5,7 +5,7 @@ import asyncio
 import socket
 from dataclasses import dataclass
 from importlib import metadata
-from typing import Any, Mapping, Self
+from typing import TYPE_CHECKING, Any, Self
 
 from aiohttp import ClientError, ClientSession
 from aiohttp.hdrs import METH_GET
@@ -19,6 +19,9 @@ from .exceptions import (
     EiswarnungRequestError,
 )
 from .models import Forecast, Ratelimit
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 @dataclass
@@ -95,7 +98,7 @@ class Eiswarnung:
                     ssl=True,
                 )
                 response.raise_for_status()
-        except asyncio.TimeoutError as exception:
+        except TimeoutError as exception:
             msg = "Timeout occurred while connecting to Eiswarnung API"
             raise EiswarnungConnectionTimeoutError(
                 msg,
