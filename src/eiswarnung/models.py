@@ -1,4 +1,5 @@
 """Data models for the Eiswarnung API."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass

@@ -1,4 +1,5 @@
 """Asynchronous Python client for the Eiswarnung API."""
+
 from pathlib import Path
 
 

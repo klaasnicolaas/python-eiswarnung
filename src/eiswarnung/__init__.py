@@ -1,4 +1,5 @@
 """Asynchronous client for the Eiswarnung API."""
+
 from .eiswarnung import Eiswarnung
 from .exceptions import (
     EiswarnungConnectionError,
