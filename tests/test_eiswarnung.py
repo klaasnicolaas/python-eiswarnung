@@ -1,4 +1,5 @@
 """Basic tests for the Eiswarnung API."""
+
 # pylint: disable=protected-access
 import asyncio
 from unittest.mock import patch
@@ -116,11 +117,14 @@ async def test_client_error() -> None:
             longitude=11.1,
             session=session,
         )
-        with patch.object(
-            session,
-            "request",
-            side_effect=ClientError,
-        ), pytest.raises(EiswarnungConnectionError):
+        with (
+            patch.object(
+                session,
+                "request",
+                side_effect=ClientError,
+            ),
+            pytest.raises(EiswarnungConnectionError),
+        ):
             assert await client._request("test")
 
 
