@@ -1,0 +1,10 @@
+# serializer version: 1
+# name: test_forecast_type0
+  Forecast(request_date=datetime.datetime(2021, 12, 27, 15, 28, 7, tzinfo=<DstTzInfo 'CET' LMT+0:18:00 STD>), status_id=0, text='Kein Eis', city='Heidelberg', forecast_date=datetime.date(2021, 12, 28))
+# ---
+# name: test_forecast_type1
+  Forecast(request_date=datetime.datetime(2021, 12, 27, 15, 28, 7, tzinfo=<DstTzInfo 'CET' LMT+0:18:00 STD>), status_id=1, text='Eis', city='Heidelberg', forecast_date=datetime.date(2021, 12, 28))
+# ---
+# name: test_forecast_type2
+  Forecast(request_date=datetime.datetime(2021, 12, 27, 15, 28, 7, tzinfo=<DstTzInfo 'CET' LMT+0:18:00 STD>), status_id=2, text='Evtl Eis', city='Heidelberg', forecast_date=datetime.date(2021, 12, 28))
+# ---
