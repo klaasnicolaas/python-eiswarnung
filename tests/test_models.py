@@ -1,6 +1,7 @@
 """Test the models."""
 
 from aresponses import ResponsesMockServer
+from syrupy.assertion import SnapshotAssertion
 
 from eiswarnung import Eiswarnung, Forecast
 
@@ -8,7 +9,9 @@ from . import load_fixtures
 
 
 async def test_forecast_type0(
-    aresponses: ResponsesMockServer, eiswarnung_client: Eiswarnung
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    eiswarnung_client: Eiswarnung,
 ) -> None:
     """Test request for Forecast object."""
     aresponses.add(
@@ -22,13 +25,14 @@ async def test_forecast_type0(
         ),
     )
     forecast: Forecast = await eiswarnung_client.forecast()
-    assert forecast.city == "Heidelberg"
-    assert forecast.status_id == 0
+    assert forecast == snapshot
     assert forecast.forecast_type == "No ice"
 
 
 async def test_forecast_type1(
-    aresponses: ResponsesMockServer, eiswarnung_client: Eiswarnung
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    eiswarnung_client: Eiswarnung,
 ) -> None:
     """Test request for Forecast object."""
     aresponses.add(
@@ -42,13 +46,14 @@ async def test_forecast_type1(
         ),
     )
     forecast: Forecast = await eiswarnung_client.forecast()
-    assert forecast.city == "Heidelberg"
-    assert forecast.status_id == 1
+    assert forecast == snapshot
     assert forecast.forecast_type == "Ice"
 
 
 async def test_forecast_type2(
-    aresponses: ResponsesMockServer, eiswarnung_client: Eiswarnung
+    aresponses: ResponsesMockServer,
+    snapshot: SnapshotAssertion,
+    eiswarnung_client: Eiswarnung,
 ) -> None:
     """Test request for Forecast object."""
     aresponses.add(
@@ -62,6 +67,5 @@ async def test_forecast_type2(
         ),
     )
     forecast: Forecast = await eiswarnung_client.forecast()
-    assert forecast.city == "Heidelberg"
-    assert forecast.status_id == 2
+    assert forecast == snapshot
     assert forecast.forecast_type == "Possibly ice"
