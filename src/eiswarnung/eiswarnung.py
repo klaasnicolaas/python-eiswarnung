@@ -6,7 +6,7 @@ import asyncio
 import socket
 from dataclasses import dataclass
 from importlib import metadata
-from typing import TYPE_CHECKING, Any, Self
+from typing import Any, Self
 
 from aiohttp import ClientError, ClientSession
 from aiohttp.hdrs import METH_GET
@@ -21,8 +21,7 @@ from .exceptions import (
 )
 from .models import Forecast, Ratelimit
 
-if TYPE_CHECKING:
-    from collections.abc import Mapping
+VERSION = metadata.version(__package__)
 
 
 @dataclass
@@ -44,7 +43,7 @@ class Eiswarnung:
         uri: str,
         *,
         method: str = METH_GET,
-        params: Mapping[str, str | float] | None = None,
+        params: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Handle a request to the Eiswarnung API.
 
@@ -75,14 +74,13 @@ class Eiswarnung:
                 the rate limit of the Eiswarnung API.
 
         """
-        version = metadata.version(__package__)
         url = URL.build(scheme="https", host="api.eiswarnung.de", path="/").join(
             URL(uri),
         )
 
         headers = {
             "Accept": "application/json",
-            "User-Agent": f"PythonEiswarnung/{version}",
+            "User-Agent": f"PythonEiswarnung/{VERSION}",
         }
 
         if self.session is None:
