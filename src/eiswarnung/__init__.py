@@ -12,9 +12,9 @@ from .models import Forecast, Ratelimit
 
 __all__ = [
     "Eiswarnung",
-    "EiswarnungError",
-    "EiswarnungConnectionTimeoutError",
     "EiswarnungConnectionError",
+    "EiswarnungConnectionTimeoutError",
+    "EiswarnungError",
     "EiswarnungRatelimitError",
     "EiswarnungRequestError",
     "Forecast",
