@@ -26,7 +26,7 @@ class EiswarnungRequestError(EiswarnungError):
         https://www.eiswarnung.de/rest-api/
 
         """
-        super().__init__(f'{data["message"]} (error {data["code"]})')
+        super().__init__(f"{data['message']} (error {data['code']})")
         self.code = data["code"]
 
 
@@ -45,5 +45,5 @@ class EiswarnungRatelimitError(EiswarnungError):
             data: The data that caused the error.
 
         """
-        super().__init__(f'{data["message"]} (error {data["code"]})')
+        super().__init__(f"{data['message']} (error {data['code']})")
         self.code = data["code"]
