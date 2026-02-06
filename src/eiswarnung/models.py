@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date, datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 import pytz
 
 
-class ForecastType(str, Enum):
+class ForecastType(StrEnum):
     """Enumeration representing the Eiswarnung Forecast type."""
 
     __slots__ = ()
