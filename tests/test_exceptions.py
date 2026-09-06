@@ -1,6 +1,5 @@
 """Test the exceptions of Eiswarnung."""
 
-# pylint: disable=protected-access
 import pytest
 from aresponses import ResponsesMockServer
 

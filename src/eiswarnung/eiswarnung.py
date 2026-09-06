@@ -21,7 +21,7 @@ from .exceptions import (
 )
 from .models import Forecast, Ratelimit
 
-VERSION: str = metadata.version(__package__)  # ty:ignore[invalid-argument-type]
+VERSION: str = metadata.version("eiswarnung")
 
 
 @dataclass

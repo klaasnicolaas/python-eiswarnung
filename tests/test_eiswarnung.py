@@ -1,6 +1,5 @@
 """Basic tests for the Eiswarnung API."""
 
-# pylint: disable=protected-access
 import asyncio
 from unittest.mock import patch
 
