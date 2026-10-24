@@ -9,7 +9,7 @@ from eiswarnung import Eiswarnung
 
 
 @pytest.fixture(name="eiswarnung_client")
-async def client() -> AsyncGenerator[Eiswarnung, None]:
+async def client() -> AsyncGenerator[Eiswarnung]:
     """Fixture for the Eiswarnung client."""
     async with (
         ClientSession() as session,
